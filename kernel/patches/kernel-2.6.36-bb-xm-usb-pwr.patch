@@ -1,0 +1,26 @@
+diff -Nar -U 10 a/arch/arm/mach-omap2/board-omap3beagle.c b/arch/arm/mach-omap2/board-omap3beagle.c
+--- a/arch/arm/mach-omap2/board-omap3beagle.c	2010-11-10 20:11:29.000000000 +1100
++++ b/arch/arm/mach-omap2/board-omap3beagle.c	2010-12-05 10:47:55.005877419 +1100
+@@ -292,21 +292,21 @@
+ 
+ 	/* REVISIT: need ehci-omap hooks for external VBUS
+ 	 * power switch and overcurrent detect
+ 	 */
+ 
+ 	gpio_request(gpio + 1, "EHCI_nOC");
+ 	gpio_direction_input(gpio + 1);
+ 
+ 	/* TWL4030_GPIO_MAX + 0 == ledA, EHCI nEN_USB_PWR (out, active low) */
+ 	gpio_request(gpio + TWL4030_GPIO_MAX, "nEN_USB_PWR");
+-	gpio_direction_output(gpio + TWL4030_GPIO_MAX, 0);
++	gpio_direction_output(gpio + TWL4030_GPIO_MAX, 1);
+ 
+ 	/* TWL4030_GPIO_MAX + 1 == ledB, PMU_STAT (out, active low LED) */
+ 	gpio_leds[2].gpio = gpio + TWL4030_GPIO_MAX + 1;
+ 
+ 	return 0;
+ }
+ 
+ static struct twl4030_gpio_platform_data beagle_gpio_data = {
+ 	.gpio_base	= OMAP_MAX_GPIO_LINES,
+ 	.irq_base	= TWL4030_GPIO_IRQ_BASE,

@@ -1,0 +1,5 @@
+Project's directory tree:
+
++ boot		: U-boot's source code
++ kernel	: Linux kernel's source code
++ rootfs	: Root file system's source code
