@@ -1,0 +1,26 @@
+mpurate=1000
+
+vram=12MB
+defaultdisplay=dvi
+dvimode=1280x720MR-16@60
+bootfile=uImage
+bootinitrd=uInitrd
+address_uimage=0x80300000
+address_uinitrd=0x81600000
+
+console=ttyO2,115200n8
+
+mmcroot=/dev/mmcblk0p2 rw
+mmcrootfstype=ext2 rootwait fixrtc
+
+xyz_load_uimage=fatload mmc 0:1 ${address_uimage} ${bootfile}
+xyz_load_uinitrd=fatload mmc 0:1 ${address_uinitrd} ${bootinitrd}
+
+xyz_mmcboot=run xyz_load_uimage; echo Booting from mmc ...
+
+optargs=console=tty0
+deviceargs=setenv device_args mpurate=${mpurate} 
+
+mmcargs=setenv bootargs console=${console} ${optargs} vram=${vram} omapfb.mode=${defaultdisplay}:${dvimode} omapdss.def_disp=${defaultdisplay} root=${mmcroot} rootfstype=${mmcrootfstype} ${device_args}
+
+loaduimage=run xyz_mmcboot; run deviceargs; run mmcargs; bootm ${address_uimage} 
